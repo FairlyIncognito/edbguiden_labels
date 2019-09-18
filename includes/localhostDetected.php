@@ -1,0 +1,1 @@
+<h2 id="title" class="error">Localhost detected!</h2>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Labels</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+</head>
+<body>
+    <header>
+        <p>Kontakt os på vores hotline via <a href="tel:70 22 77 11">70 22 77 11</a></p>
+        <div id="logoWrapper">
+            <img src="img/logo.png" alt="EDB Guiden logo">
+            <h1>Labels</h1>
+        </div>
+    </header>

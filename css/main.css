@@ -1,0 +1,98 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+}
+html, body {
+    height: 100%;
+
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+body #title {
+    align-self: center;
+}
+
+h1, h2, h3 {
+    color: #2b2b2b;
+    font-weight: 400;
+    font-size: 1.618em;
+}
+
+
+
+/* Header Styling */
+header p {
+    color: rgba(255,255,255,.99);
+    background-color: #284A9C;
+    padding: 0.5rem 0.5rem 0.5rem 15rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.4vh;
+}
+
+header a {
+    color: rgba(255,255,255,.79);
+    text-decoration: none;
+}
+
+header #logoWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+}
+
+header img {
+    max-width: 12%;
+    height: auto;
+}
+
+/* Main Content Styling */
+main {
+    align-self: center;
+    display: flex;
+    flex-flow: row wrap;
+    
+}
+
+main a {
+    background-color: none;
+    display: block;
+    text-decoration: none;
+    color: #2b2b2b;
+    border: 1px solid #2b2b2b;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+main p {
+    color: #686868;
+    font-weight: 400;
+    line-height: 1.618;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.error {
+    color: red;
+    align-self: center;
+}
+
+
+
+/* Footer Styling */
+footer {
+    flex-shrink: 0;
+    background-color: #284A9C;
+    color: #F2F4F9;
+    text-align: center;
+    margin-top: auto;
+    padding: 1rem;
+}

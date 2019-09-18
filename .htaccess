@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !(/$|\.) 
+RewriteRule (.*) %{REQUEST_URI}/ [R=301,L] 
+
+
+# If the requested resource doesn't exist, use index.html
+RewriteRule ^ index.php
