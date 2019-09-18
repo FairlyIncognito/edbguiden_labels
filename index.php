@@ -1,78 +1,96 @@
 <?php
-require_once('code/functions.php');
+require('code/config.php');
+require('code/functions.php');
 
-$companyIp = $_SERVER['REMOTE_ADDR'];
-$uri = $_SERVER['REQUEST_URI'];
-
+// Check if localhost
 // if(is_localhost() === false) { 
 //     $companyIp = '1234';
 // }
 
-$companies = [
-    $companyIp => 'mjpb',
-    '100.100.100.100' => 'mjpb',
-];
-
+// Check if company IP is stored in the companies array
 if(!isset($companies[$companyIp])) {
+    echo $header;
+    echo $customerNotFound;
+    echo $footer;
     die('401');
 }
 
-$appPath = 'apps/' . $companies[$companyIp] . '/';
-
-$availableFormats = scandir($appPath);
-
-$availableFormats = array_slice($availableFormats, 2);
-
 if($_SERVER['REQUEST_URI'] === '/') {
+    // If there is no available formats, return error and die
     if(count($availableFormats) === 0) {
+        echo $header;
+        echo $formatsNotFound;
+        echo $footer;
         die('No formats available');
+        
     }
+    // If there is only one available format, redirect to it
     elseif(count($availableFormats) === 1) {
         header("Location: /format/" . $availableFormats['0'] . '/');
     } else {
-        var_dump($availableFormats);
+        // If there are multiple formats, show each available format
+        echo $header;
+
+        // Remove everything that is not a directory in the array
+        foreach($availableFormats as $value) {
+            if (is_dir($appPath . $value) === false) {
+                continue;
+            }
+
+            echo "<a href='format/" . $value . "'>";
+            echo $value;
+            echo "</a>";    
+        }
+
+        echo $footer;
     }
     die();
 }
 
 if(preg_match_all('/\/format\/(.+?)($|\/(.+)|\/)/', $uri, $regex)) {
     $selectedFormat = $regex[1][0];
-    // echo "<pre>";
-    // var_dump($regex);
-    // echo "</pre>";
 
     if(!in_array($selectedFormat, $availableFormats)) {
+        echo $header;
+        http_response_code(404);
+        echo $footer;
         die('404 Not found');
+        
     }
 
     if(!empty($regex[3][0])) {
         $file = $appPath . $selectedFormat . $regex[2][0];
 
         if(file_exists($file)) {
-            $ext = pathinfo($file, PATHINFO_EXTENSION);
-            if($ext === 'js') {
-                header("Content-Type: application/javascript");
-            }
-            elseif($ext === 'css') {
-                header("Content-Type: text/css");
-            } else {
-                header("Content-Type: " . mime_content_type($file));
-            }
-            
-            header("Content-Length: " . filesize($file));
-            
-            echo file_get_contents($file);
-            die();
-
+           serveFile($file);
         } else {
+            echo $header;
             http_response_code(404);
+            echo $footer;
             die('404 File not found');
+            
         }
     }
 
-    echo file_get_contents($appPath . $selectedFormat . '/index.html');
-    die();
+    $getFormat = @file_get_contents($appPath . $selectedFormat . '/index.html');
+    if($getFormat === FALSE) {
+        echo $header;
+        echo $formatsNotFound;
+        echo $footer;
+        die();
+    } else {
+        echo $getFormat;
+        die(); 
+    };
 }
 
+if(file_exists(trim($uri, '/'))) {
+    serveFile(trim($uri, '/'));
+} else {
+    die(trim($uri, '/'));
+}
+
+echo $header;
 http_response_code(404);
+echo $footer;
 die('404 File not found');
