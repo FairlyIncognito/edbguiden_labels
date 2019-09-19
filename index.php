@@ -2,11 +2,6 @@
 require('code/config.php');
 require('code/functions.php');
 
-// Check if localhost
-// if(is_localhost() === false) { 
-//     $companyIp = '1234';
-// }
-
 // Check if company IP is stored in the companies array
 if(!isset($companies[$companyIp])) {
     echo $header;
