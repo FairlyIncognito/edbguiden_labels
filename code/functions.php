@@ -1,6 +1,4 @@
 <?php
-require_once('config.php');
-
 function serveFile($file) {
     $ext = pathinfo($file, PATHINFO_EXTENSION);
     if($ext === 'js') {
@@ -16,4 +14,10 @@ function serveFile($file) {
 
     echo file_get_contents($file);
     die();
+}
+
+
+
+function isLocalhost($whitelist = ['127.0.0.1', '::1']) {
+    return in_array($_SERVER['REMOTE_ADDR'], $whitelist);
 }
